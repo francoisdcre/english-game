@@ -318,9 +318,10 @@ function startCountdown(callback) {
   elements.countdownDisplay.textContent = countLeft;
   elements.countdownDisplay.style.display = "flex";
 
-  // Hide card content during countdown
+  // Hide card content and timer during countdown
   elements.cardText.style.visibility = "hidden";
   elements.cardDescription.style.visibility = "hidden";
+  elements.timerDisplay.style.display = "none";
 
   gameState.countdownTimer = setInterval(() => {
     countLeft--;

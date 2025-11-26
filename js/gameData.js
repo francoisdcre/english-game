@@ -27,7 +27,7 @@ const descriptions = {
     "Facebook - Social networking platform for connecting with friends and family",
   "assets/images/easy/icones_Instagram.png":
     "Instagram - Photo and video sharing social networking service",
-  "assets/images/easy/icones_snapchat .png":
+  "assets/images/easy/icones_snapchat.png":
     "Snapchat - Multimedia messaging app with disappearing content",
   "assets/images/easy/icones_whatsapp.png":
     "WhatsApp - Free messaging and voice over IP service",
