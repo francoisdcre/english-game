@@ -32,8 +32,7 @@ const elements = {
   difficultyDisplay: document.getElementById("difficulty-display"),
   cardText: document.getElementById("card-text"),
   cardDescription: document.getElementById("card-description"),
-  unblurBtn: document.getElementById("unblur-btn"),
-  revealCardBtn: document.getElementById("reveal-card-btn"),
+  revealBtn: document.getElementById("reveal-btn"),
   timerDisplay: document.getElementById("timer-display"),
   searchMessage: document.getElementById("search-message"),
   nextCardBtn: document.getElementById("next-card-btn"),
@@ -211,7 +210,6 @@ function displayCurrentCard() {
   const currentCard = gameState.cards[gameState.currentCardIndex];
 
   // Reset blur state for each new card
-  gameState.isDescriptionBlurred = gameState.difficulty !== "EASY";
   gameState.isCardBlurred = false;
 
   // Stop previous timer if it exists
@@ -222,7 +220,7 @@ function displayCurrentCard() {
 
   // Unblur the card
   elements.cardText.classList.remove("blurred");
-  elements.revealCardBtn.style.display = "none";
+  elements.revealBtn.style.display = "none";
 
   // Check if it's an image (ends with .png) or a word
   if (currentCard.endsWith(".png")) {
@@ -236,46 +234,35 @@ function displayCurrentCard() {
   // Display description
   displayDescription(currentCard);
 
-  // Start timer in QUICK mode
-  if (gameState.quickMode) {
-    startQuickModeTimer();
-  } else {
-    elements.timerDisplay.style.display = "none";
-  }
+  // Start timer (QUICK mode always active)
+  startQuickModeTimer();
 }
 
 function displayDescription(card) {
   const description = descriptions[card] || "No description available";
 
-  // Show or hide unblur button based on difficulty
-  if (gameState.difficulty === "EASY") {
-    elements.cardDescription.textContent = description;
-    elements.cardDescription.classList.remove("blurred");
-    elements.unblurBtn.style.display = "none";
-  } else if (gameState.quickMode) {
-    // In QUICK mode, display unblurred description at the start
-    elements.cardDescription.textContent = description;
-    elements.cardDescription.classList.remove("blurred");
-    elements.unblurBtn.style.display = "none";
-  } else {
-    elements.cardDescription.textContent = description;
-    if (gameState.isDescriptionBlurred) {
-      elements.cardDescription.classList.add("blurred");
-      elements.unblurBtn.style.display = "block";
-    } else {
-      elements.cardDescription.classList.remove("blurred");
-      elements.unblurBtn.style.display = "none";
-    }
-  }
-}
-
-function unblurDescription() {
-  gameState.isDescriptionBlurred = false;
-  displayDescription(gameState.cards[gameState.currentCardIndex]);
+  // In QUICK mode (always active), description starts unblurred
+  elements.cardDescription.textContent = description;
+  elements.cardDescription.classList.remove("blurred");
 }
 
 function startQuickModeTimer() {
-  let timeLeft = 3;
+  // Set timer duration based on difficulty
+  let timeLeft;
+  switch (gameState.difficulty) {
+    case "EASY":
+      timeLeft = 10;
+      break;
+    case "MEDIUM":
+      timeLeft = 6;
+      break;
+    case "HARD":
+      timeLeft = 3;
+      break;
+    default:
+      timeLeft = 6;
+  }
+
   elements.timerDisplay.textContent = timeLeft;
   elements.timerDisplay.style.display = "block";
 
@@ -295,37 +282,32 @@ function blurCard() {
   gameState.isCardBlurred = true;
   elements.cardText.classList.add("blurred");
   elements.timerDisplay.style.display = "none";
-  elements.revealCardBtn.style.display = "block";
+  elements.revealBtn.style.display = "block";
 
-  // Also blur description in QUICK mode
-  if (gameState.quickMode) {
-    elements.cardDescription.classList.add("blurred");
-    elements.unblurBtn.style.display = "block";
+  // Blur description (QUICK mode always active)
+  elements.cardDescription.classList.add("blurred");
 
-    // Display "SEARCH!" message with animation
-    elements.searchMessage.style.display = "block";
-    elements.searchMessage.classList.add("zoom-in");
+  // Display "SEARCH!" message with animation
+  elements.searchMessage.style.display = "block";
+  elements.searchMessage.classList.add("zoom-in");
 
-    // Hide message after 2 seconds
+  // Hide message after 2 seconds
+  setTimeout(() => {
+    elements.searchMessage.classList.remove("zoom-in");
+    elements.searchMessage.classList.add("fade-out");
+
     setTimeout(() => {
-      elements.searchMessage.classList.remove("zoom-in");
-      elements.searchMessage.classList.add("fade-out");
-
-      setTimeout(() => {
-        elements.searchMessage.style.display = "none";
-        elements.searchMessage.classList.remove("fade-out");
-      }, 500);
-    }, 2000);
-  }
+      elements.searchMessage.style.display = "none";
+      elements.searchMessage.classList.remove("fade-out");
+    }, 500);
+  }, 2000);
 }
 
 function revealCard() {
   gameState.isCardBlurred = false;
   elements.cardText.classList.remove("blurred");
-  elements.revealCardBtn.style.display = "none";
-
-  // Do NOT unblur the description, only the card
-  // The description remains blurred and can be revealed with its own button
+  elements.cardDescription.classList.remove("blurred");
+  elements.revealBtn.style.display = "none";
 }
 function nextCard() {
   gameState.currentCardIndex++;
@@ -420,11 +402,8 @@ elements.quitGameBtn.addEventListener("click", () => {
   }
 });
 
-// Unblur description
-elements.unblurBtn.addEventListener("click", unblurDescription);
-
-// Reveal card in QUICK mode
-elements.revealCardBtn.addEventListener("click", revealCard);
+// Reveal card and description
+elements.revealBtn.addEventListener("click", revealCard);
 
 // ============================================
 // Initialization
