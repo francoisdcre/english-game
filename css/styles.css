@@ -335,6 +335,39 @@ h2 {
   position: relative;
 }
 
+.countdown-display {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  font-weight: bold;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  z-index: 200;
+  line-height: 1;
+  font-family: "Montserrat", sans-serif;
+  border: 6px solid white;
+  animation: countdownPulse 1s infinite;
+}
+
+@keyframes countdownPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
 .timer-display {
   position: absolute;
   top: 10px;

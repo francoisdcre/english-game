@@ -12,6 +12,7 @@ const gameState = {
   quickMode: true,
   isCardBlurred: false,
   quickModeTimer: null,
+  countdownTimer: null,
 };
 
 // ============================================
@@ -33,6 +34,7 @@ const elements = {
   cardText: document.getElementById("card-text"),
   cardDescription: document.getElementById("card-description"),
   revealBtn: document.getElementById("reveal-btn"),
+  countdownDisplay: document.getElementById("countdown-display"),
   timerDisplay: document.getElementById("timer-display"),
   searchMessage: document.getElementById("search-message"),
   nextCardBtn: document.getElementById("next-card-btn"),
@@ -200,6 +202,35 @@ function updatePlayersScoreDisplay() {
   });
 }
 
+function startCountdown(callback) {
+  let countLeft = 3;
+  elements.countdownDisplay.textContent = countLeft;
+  elements.countdownDisplay.style.display = "flex";
+
+  // Hide card content during countdown
+  elements.cardText.style.visibility = "hidden";
+  elements.cardDescription.style.visibility = "hidden";
+
+  gameState.countdownTimer = setInterval(() => {
+    countLeft--;
+
+    if (countLeft > 0) {
+      elements.countdownDisplay.textContent = countLeft;
+    } else {
+      clearInterval(gameState.countdownTimer);
+      gameState.countdownTimer = null;
+      elements.countdownDisplay.style.display = "none";
+
+      // Show card content
+      elements.cardText.style.visibility = "visible";
+      elements.cardDescription.style.visibility = "visible";
+
+      // Execute callback to start the game timer
+      if (callback) callback();
+    }
+  }, 1000);
+}
+
 function displayCurrentCard() {
   // If all cards have been used, reshuffle the deck
   if (gameState.currentCardIndex >= gameState.cards.length) {
@@ -234,8 +265,11 @@ function displayCurrentCard() {
   // Display description
   displayDescription(currentCard);
 
-  // Start timer (QUICK mode always active)
-  startQuickModeTimer();
+  // Start countdown before showing timer
+  startCountdown(() => {
+    // Start timer (QUICK mode always active)
+    startQuickModeTimer();
+  });
 }
 
 function displayDescription(card) {
@@ -310,6 +344,13 @@ function revealCard() {
   elements.revealBtn.style.display = "none";
 }
 function nextCard() {
+  // Clear any active countdown
+  if (gameState.countdownTimer) {
+    clearInterval(gameState.countdownTimer);
+    gameState.countdownTimer = null;
+    elements.countdownDisplay.style.display = "none";
+  }
+
   gameState.currentCardIndex++;
   displayCurrentCard();
 }
