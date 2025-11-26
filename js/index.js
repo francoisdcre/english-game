@@ -40,6 +40,12 @@ const elements = {
   nextCardBtn: document.getElementById("next-card-btn"),
   playersScoreList: document.getElementById("players-score-list"),
   quitGameBtn: document.getElementById("quit-game-btn"),
+
+  // Leaderboard screen
+  leaderboardScreen: document.getElementById("leaderboard-screen"),
+  leaderboardList: document.getElementById("leaderboard-list"),
+  playAgainBtn: document.getElementById("play-again-btn"),
+  backToMenuBtn: document.getElementById("back-to-menu-btn"),
 };
 
 // ============================================
@@ -397,15 +403,18 @@ function endGame(winner = null) {
     );
   }
 
-  const message =
-    `🎉 Game over!\n\n🏆 Winner: ${winner.name} with ${winner.score} points!\n\nFinal scores:\n` +
-    gameState.players
-      .sort((a, b) => b.score - a.score)
-      .map((p, i) => `${i + 1}. ${p.name}: ${p.score} points`)
-      .join("\n");
+  // Sort players by score
+  const sortedPlayers = [...gameState.players].sort(
+    (a, b) => b.score - a.score
+  );
 
-  alert(message);
-  quitGame();
+  // Display leaderboard
+  displayLeaderboard(sortedPlayers);
+
+  // Switch to leaderboard screen
+  gameState.isGameActive = false;
+  elements.gameScreen.classList.remove("active");
+  elements.leaderboardScreen.classList.add("active");
 }
 
 function quitGame() {
@@ -415,7 +424,49 @@ function quitGame() {
 
   // Return to setup screen
   elements.gameScreen.classList.remove("active");
+  elements.leaderboardScreen.classList.remove("active");
   elements.setupScreen.classList.add("active");
+}
+
+function displayLeaderboard(sortedPlayers) {
+  elements.leaderboardList.innerHTML = "";
+
+  sortedPlayers.forEach((player, index) => {
+    const leaderboardItem = document.createElement("div");
+    leaderboardItem.className = "leaderboard-item";
+
+    // Add special class for top 3
+    if (index === 0) leaderboardItem.classList.add("winner");
+    if (index === 1) leaderboardItem.classList.add("second");
+    if (index === 2) leaderboardItem.classList.add("third");
+
+    // Medals for top 3
+    let rankDisplay = `#${index + 1}`;
+    if (index === 0) rankDisplay = "🥇";
+    if (index === 1) rankDisplay = "🥈";
+    if (index === 2) rankDisplay = "🥉";
+
+    leaderboardItem.innerHTML = `
+      <div class="leaderboard-rank">${rankDisplay}</div>
+      <div class="leaderboard-player">
+        <div class="leaderboard-player-name">${player.name}</div>
+      </div>
+      <div class="leaderboard-score">${player.score} pts</div>
+    `;
+
+    elements.leaderboardList.appendChild(leaderboardItem);
+  });
+}
+
+function playAgain() {
+  // Reset player scores
+  gameState.players.forEach((player) => {
+    player.score = 0;
+  });
+
+  // Restart game
+  elements.leaderboardScreen.classList.remove("active");
+  startGame();
 }
 
 // ============================================
@@ -458,6 +509,12 @@ elements.quitGameBtn.addEventListener("click", () => {
 
 // Reveal card and description
 elements.revealBtn.addEventListener("click", revealCard);
+
+// Play again
+elements.playAgainBtn.addEventListener("click", playAgain);
+
+// Back to menu
+elements.backToMenuBtn.addEventListener("click", quitGame);
 
 // ============================================
 // Initialization
