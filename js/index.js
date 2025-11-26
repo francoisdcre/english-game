@@ -13,6 +13,7 @@ const gameState = {
   isCardBlurred: false,
   quickModeTimer: null,
   countdownTimer: null,
+  scoreChart: null,
 };
 
 // ============================================
@@ -40,6 +41,7 @@ const elements = {
   nextCardBtn: document.getElementById("next-card-btn"),
   playersScoreList: document.getElementById("players-score-list"),
   quitGameBtn: document.getElementById("quit-game-btn"),
+  scoreChart: document.getElementById("scoreChart"),
 
   // Leaderboard screen
   leaderboardScreen: document.getElementById("leaderboard-screen"),
@@ -157,6 +159,93 @@ function selectDifficulty(difficulty) {
   }
 }
 
+function updateScoreChart() {
+  const ctx = elements.scoreChart.getContext("2d");
+
+  // Destroy existing chart if it exists
+  if (gameState.scoreChart) {
+    gameState.scoreChart.destroy();
+  }
+
+  // Prepare data
+  const playerNames = gameState.players.map((p) => p.name);
+  const playerScores = gameState.players.map((p) => p.score);
+
+  // Create gradient colors for bars
+  const colors = gameState.players.map((player) => {
+    const percentage = (player.score / gameState.winningScore) * 100;
+    if (percentage >= 90) return "rgba(231, 76, 60, 0.8)"; // Red - close to winning
+    if (percentage >= 70) return "rgba(243, 156, 18, 0.8)"; // Orange
+    if (percentage >= 50) return "rgba(241, 196, 15, 0.8)"; // Yellow
+    return "rgba(102, 126, 234, 0.8)"; // Blue - default
+  });
+
+  const borderColors = gameState.players.map((player) => {
+    const percentage = (player.score / gameState.winningScore) * 100;
+    if (percentage >= 90) return "rgba(231, 76, 60, 1)";
+    if (percentage >= 70) return "rgba(243, 156, 18, 1)";
+    if (percentage >= 50) return "rgba(241, 196, 15, 1)";
+    return "rgba(102, 126, 234, 1)";
+  });
+
+  // Create chart
+  gameState.scoreChart = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: playerNames,
+      datasets: [
+        {
+          label: "Score",
+          data: playerScores,
+          backgroundColor: colors,
+          borderColor: borderColors,
+          borderWidth: 2,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              const score = context.parsed.y;
+              const percentage = (
+                (score / gameState.winningScore) *
+                100
+              ).toFixed(1);
+              return `${score} pts (${percentage}% to victory)`;
+            },
+          },
+        },
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: gameState.winningScore,
+          ticks: {
+            stepSize: 5,
+          },
+          title: {
+            display: true,
+            text: "Points",
+          },
+        },
+        x: {
+          title: {
+            display: true,
+            text: "Players",
+          },
+        },
+      },
+    },
+  });
+}
+
 // ============================================
 // Game Management
 // ============================================
@@ -219,6 +308,9 @@ function updatePlayersScoreDisplay() {
     `;
     elements.playersScoreList.appendChild(playerItem);
   });
+
+  // Update chart
+  updateScoreChart();
 }
 
 function startCountdown(callback) {
