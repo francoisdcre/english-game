@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "GEOspeed-";
+  font-family: "GEOspeed";
   src: url("../assets/fonts/GEOspeed-SmallCaps-FFP.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
@@ -13,7 +13,7 @@
 }
 
 body {
-  font-family: "GEOspeed-", sans-serif;
+  font-family: "GEOspeed", sans-serif;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   padding: 20px;

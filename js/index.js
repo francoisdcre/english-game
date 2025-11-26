@@ -1,5 +1,5 @@
 // ============================================
-// État de l'application
+// Application State
 // ============================================
 const gameState = {
   players: [],
@@ -15,7 +15,7 @@ const gameState = {
 };
 
 // ============================================
-// Descriptions pour chaque carte/mot
+// Descriptions for each card/word
 // ============================================
 const descriptions = {
   // Images - Easy level
@@ -175,7 +175,7 @@ const descriptions = {
 };
 
 // ============================================
-// Données de jeu (cartes à jouer + mots IT)
+// Game Data (cards + IT words)
 // ============================================
 const gameData = {
   EASY: [
@@ -291,10 +291,10 @@ const gameData = {
 };
 
 // ============================================
-// Éléments du DOM
+// DOM Elements
 // ============================================
 const elements = {
-  // Écran de configuration
+  // Setup screen
   setupScreen: document.getElementById("setup-screen"),
   gameScreen: document.getElementById("game-screen"),
   playerNameInput: document.getElementById("player-name-input"),
@@ -305,7 +305,7 @@ const elements = {
   quickModeCheckbox: document.getElementById("quick-mode-checkbox"),
   startGameBtn: document.getElementById("start-game-btn"),
 
-  // Écran de jeu
+  // Game screen
   difficultyDisplay: document.getElementById("difficulty-display"),
   cardText: document.getElementById("card-text"),
   cardDescription: document.getElementById("card-description"),
@@ -319,10 +319,10 @@ const elements = {
 };
 
 // ============================================
-// Fonctions utilitaires
+// Utility Functions
 // ============================================
 
-// Mélanger un tableau (Fisher-Yates)
+// Shuffle array (Fisher-Yates)
 function shuffleArray(array) {
   const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
@@ -332,23 +332,23 @@ function shuffleArray(array) {
   return shuffled;
 }
 
-// Générer un ID unique
+// Generate unique ID
 function generateId() {
   return Date.now() + Math.random().toString(36).substr(2, 9);
 }
 
 // ============================================
-// Gestion des joueurs
+// Player Management
 // ============================================
 
 function addPlayer(name) {
   if (!name.trim()) {
-    alert("Veuillez entrer un nom valide");
+    alert("Please enter a valid name");
     return;
   }
 
   if (gameState.players.length >= 5) {
-    alert("Maximum 5 joueurs autorisés");
+    alert("Maximum 5 players allowed");
     return;
   }
 
@@ -376,7 +376,7 @@ function updatePlayersDisplay() {
 
   if (gameState.players.length === 0) {
     elements.playersList.innerHTML =
-      '<p class="info-text">Aucun joueur ajouté</p>';
+      '<p class="info-text">No players added</p>';
     return;
   }
 
@@ -385,12 +385,12 @@ function updatePlayersDisplay() {
     playerItem.className = "player-item";
     playerItem.innerHTML = `
       <span>${player.name}</span>
-      <button class="remove-player-btn" onclick="removePlayer('${player.id}')">Retirer</button>
+      <button class="remove-player-btn" onclick="removePlayer('${player.id}')">Remove</button>
     `;
     elements.playersList.appendChild(playerItem);
   });
 
-  // Désactiver le bouton d'ajout si 5 joueurs
+  // Disable add button if 5 players
   elements.addPlayerBtn.disabled = gameState.players.length >= 5;
 }
 
@@ -399,13 +399,13 @@ function updateStartButtonState() {
 }
 
 // ============================================
-// Gestion de la difficulté
+// Difficulty Management
 // ============================================
 
 function selectDifficulty(difficulty) {
   gameState.difficulty = difficulty;
 
-  // Mettre à jour l'UI
+  // Update UI
   elements.difficultyBtns.forEach((btn) => {
     btn.classList.remove("active");
     if (btn.dataset.difficulty === difficulty) {
@@ -415,49 +415,49 @@ function selectDifficulty(difficulty) {
 }
 
 // ============================================
-// Gestion du jeu
+// Game Management
 // ============================================
 
 function startGame() {
   if (gameState.players.length === 0) {
-    alert("Veuillez ajouter au moins un joueur");
+    alert("Please add at least one player");
     return;
   }
 
-  // Récupérer le score gagnant choisi
+  // Get chosen winning score
   const winningScore = parseInt(elements.winningScoreInput.value);
   if (isNaN(winningScore) || winningScore < 5 || winningScore > 100) {
-    alert("Veuillez choisir un score gagnant entre 5 et 100");
+    alert("Please choose a winning score between 5 and 100");
     return;
   }
   gameState.winningScore = winningScore;
 
-  // Récupérer le mode QUICK
+  // Get QUICK mode
   gameState.quickMode = elements.quickModeCheckbox.checked;
 
-  // Initialiser les scores
+  // Initialize scores
   gameState.players.forEach((player) => (player.score = 0));
 
-  // Préparer les cartes selon la difficulté
+  // Prepare cards based on difficulty
   gameState.cards = shuffleArray(gameData[gameState.difficulty]);
   gameState.currentCardIndex = 0;
   gameState.isGameActive = true;
 
-  // Changer d'écran
+  // Switch screen
   elements.setupScreen.classList.remove("active");
   elements.gameScreen.classList.add("active");
 
-  // Afficher les informations
+  // Display information
   updateGameDisplay();
   displayCurrentCard();
 }
 
 function updateGameDisplay() {
-  // Afficher la difficulté
+  // Display difficulty
   elements.difficultyDisplay.textContent = gameState.difficulty;
   elements.difficultyDisplay.className = `difficulty-badge ${gameState.difficulty}`;
 
-  // Afficher les joueurs avec leurs scores
+  // Display players with their scores
   updatePlayersScoreDisplay();
 }
 
@@ -482,7 +482,7 @@ function updatePlayersScoreDisplay() {
 }
 
 function displayCurrentCard() {
-  // Si on a parcouru toutes les cartes, remélanger le paquet
+  // If all cards have been used, reshuffle the deck
   if (gameState.currentCardIndex >= gameState.cards.length) {
     gameState.cards = shuffleArray(gameData[gameState.difficulty]);
     gameState.currentCardIndex = 0;
@@ -490,33 +490,33 @@ function displayCurrentCard() {
 
   const currentCard = gameState.cards[gameState.currentCardIndex];
 
-  // Réinitialiser l'état du flou pour chaque nouvelle carte
+  // Reset blur state for each new card
   gameState.isDescriptionBlurred = gameState.difficulty !== "EASY";
   gameState.isCardBlurred = false;
 
-  // Arrêter le timer précédent s'il existe
+  // Stop previous timer if it exists
   if (gameState.quickModeTimer) {
     clearInterval(gameState.quickModeTimer);
     gameState.quickModeTimer = null;
   }
 
-  // Déflouter la carte
+  // Unblur the card
   elements.cardText.classList.remove("blurred");
   elements.revealCardBtn.style.display = "none";
 
-  // Vérifier si c'est une image (se termine par .png) ou un mot
+  // Check if it's an image (ends with .png) or a word
   if (currentCard.endsWith(".png")) {
-    // Afficher l'image de la carte
-    elements.cardText.innerHTML = `<img src="assets/images/${currentCard}" alt="Carte" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
+    // Display card image
+    elements.cardText.innerHTML = `<img src="assets/images/${currentCard}" alt="Card" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
   } else {
-    // Afficher le mot
+    // Display word
     elements.cardText.textContent = currentCard;
   }
 
-  // Afficher la description
+  // Display description
   displayDescription(currentCard);
 
-  // Démarrer le timer en mode QUICK
+  // Start timer in QUICK mode
   if (gameState.quickMode) {
     startQuickModeTimer();
   } else {
@@ -527,13 +527,13 @@ function displayCurrentCard() {
 function displayDescription(card) {
   const description = descriptions[card] || "No description available";
 
-  // Afficher ou masquer le bouton de défloutage selon la difficulté
+  // Show or hide unblur button based on difficulty
   if (gameState.difficulty === "EASY") {
     elements.cardDescription.textContent = description;
     elements.cardDescription.classList.remove("blurred");
     elements.unblurBtn.style.display = "none";
   } else if (gameState.quickMode) {
-    // En mode QUICK, afficher la description non floutée au début
+    // In QUICK mode, display unblurred description at the start
     elements.cardDescription.textContent = description;
     elements.cardDescription.classList.remove("blurred");
     elements.unblurBtn.style.display = "none";
@@ -577,16 +577,16 @@ function blurCard() {
   elements.timerDisplay.style.display = "none";
   elements.revealCardBtn.style.display = "block";
 
-  // Flouter aussi la description en mode QUICK
+  // Also blur description in QUICK mode
   if (gameState.quickMode) {
     elements.cardDescription.classList.add("blurred");
     elements.unblurBtn.style.display = "block";
 
-    // Afficher le message "CHERCHEZ !" avec animation
+    // Display "SEARCH!" message with animation
     elements.searchMessage.style.display = "block";
     elements.searchMessage.classList.add("zoom-in");
 
-    // Masquer le message après 2 secondes
+    // Hide message after 2 seconds
     setTimeout(() => {
       elements.searchMessage.classList.remove("zoom-in");
       elements.searchMessage.classList.add("fade-out");
@@ -604,8 +604,8 @@ function revealCard() {
   elements.cardText.classList.remove("blurred");
   elements.revealCardBtn.style.display = "none";
 
-  // Ne PAS déflouter la description, seulement la carte
-  // La description reste floutée et peut être révélée avec son propre bouton
+  // Do NOT unblur the description, only the card
+  // The description remains blurred and can be revealed with its own button
 }
 function nextCard() {
   gameState.currentCardIndex++;
@@ -618,7 +618,7 @@ function addPoint(playerId) {
     player.score++;
     updatePlayersScoreDisplay();
 
-    // Vérifier si le joueur a atteint le score gagnant
+    // Check if player has reached winning score
     if (player.score >= gameState.winningScore) {
       endGame(player);
     }
@@ -634,7 +634,7 @@ function removePoint(playerId) {
 }
 
 function endGame(winner = null) {
-  // Si aucun gagnant spécifié, trouver celui avec le plus de points
+  // If no winner specified, find the one with most points
   if (!winner) {
     winner = gameState.players.reduce((prev, current) =>
       current.score > prev.score ? current : prev
@@ -642,7 +642,7 @@ function endGame(winner = null) {
   }
 
   const message =
-    `🎉 Partie terminée!\n\n🏆 Gagnant: ${winner.name} avec ${winner.score} points!\n\nScores finaux:\n` +
+    `🎉 Game over!\n\n🏆 Winner: ${winner.name} with ${winner.score} points!\n\nFinal scores:\n` +
     gameState.players
       .sort((a, b) => b.score - a.score)
       .map((p, i) => `${i + 1}. ${p.name}: ${p.score} points`)
@@ -657,7 +657,7 @@ function quitGame() {
   gameState.currentCardIndex = 0;
   gameState.cards = [];
 
-  // Retour à l'écran de configuration
+  // Return to setup screen
   elements.gameScreen.classList.remove("active");
   elements.setupScreen.classList.add("active");
 }
@@ -666,13 +666,13 @@ function quitGame() {
 // Event Listeners
 // ============================================
 
-// Ajouter un joueur
+// Add player
 elements.addPlayerBtn.addEventListener("click", () => {
   const name = elements.playerNameInput.value;
   addPlayer(name);
 });
 
-// Ajouter un joueur avec Enter
+// Add player with Enter key
 elements.playerNameInput.addEventListener("keypress", (e) => {
   if (e.key === "Enter") {
     const name = elements.playerNameInput.value;
@@ -680,41 +680,41 @@ elements.playerNameInput.addEventListener("keypress", (e) => {
   }
 });
 
-// Sélection de la difficulté
+// Difficulty selection
 elements.difficultyBtns.forEach((btn) => {
   btn.addEventListener("click", () => {
     selectDifficulty(btn.dataset.difficulty);
   });
 });
 
-// Démarrer la partie
+// Start game
 elements.startGameBtn.addEventListener("click", startGame);
 
-// Carte suivante
+// Next card
 elements.nextCardBtn.addEventListener("click", nextCard);
 
-// Quitter la partie
+// Quit game
 elements.quitGameBtn.addEventListener("click", () => {
-  if (confirm("Êtes-vous sûr de vouloir quitter la partie en cours?")) {
+  if (confirm("Are you sure you want to quit the current game?")) {
     quitGame();
   }
 });
 
-// Déflouter la description
+// Unblur description
 elements.unblurBtn.addEventListener("click", unblurDescription);
 
-// Révéler la carte en mode QUICK
+// Reveal card in QUICK mode
 elements.revealCardBtn.addEventListener("click", revealCard);
 
 // ============================================
-// Initialisation
+// Initialization
 // ============================================
 
-// Rendre les fonctions globales pour les onclick
+// Make functions global for onclick handlers
 window.removePlayer = removePlayer;
 window.addPoint = addPoint;
 window.removePoint = removePoint;
 
-// Initialiser l'affichage
+// Initialize display
 updatePlayersDisplay();
 updateStartButtonState();

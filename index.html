@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,22 +13,32 @@
         <h1>Fast And Glorious</h1>
 
         <div class="section">
-          <h2>Joueurs</h2>
+          <h2>Players</h2>
           <div id="players-list"></div>
           <div class="add-player-form">
             <input
               type="text"
               id="player-name-input"
-              placeholder="Nom du joueur"
+              placeholder="Player name"
               maxlength="20"
             />
-            <button id="add-player-btn">Ajouter Joueur</button>
+            <button id="add-player-btn">Add Player</button>
           </div>
-          <p class="info-text">Maximum 5 joueurs</p>
+          <p class="info-text">
+            Maximum
+            <span
+              style="
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bold;
+              "
+              >5</span
+            >
+            players
+          </p>
         </div>
 
         <div class="section">
-          <h2>Difficulté</h2>
+          <h2>Difficulty</h2>
           <div class="difficulty-buttons">
             <button class="difficulty-btn" data-difficulty="EASY">Easy</button>
             <button class="difficulty-btn active" data-difficulty="MEDIUM">
@@ -39,7 +49,7 @@
         </div>
 
         <div class="section">
-          <h2>Points pour gagner</h2>
+          <h2>Points to win</h2>
           <div class="score-selector">
             <input
               type="number"
@@ -49,28 +59,44 @@
               value="20"
               step="5"
             />
-            <span class="info-text"
-              >Points nécessaires pour remporter la partie</span
-            >
+            <span class="info-text">Points needed to win the game</span>
           </div>
         </div>
 
         <div class="section">
-          <h2>Mode QUICK</h2>
+          <h2>QUICK Mode</h2>
           <div class="quick-mode-selector">
             <label class="checkbox-container">
               <input type="checkbox" id="quick-mode-checkbox" />
               <span class="checkmark"></span>
               <span class="checkbox-label"
-                >Activer le mode rapide (3 secondes)</span
+                >Enable quick mode
+                <span
+                  style="
+                    font-family: Arial, Helvetica, sans-serif;
+                    font-weight: bold;
+                  "
+                  >(3</span
+                >
+                seconds)</span
               >
             </label>
-            <p class="info-text">La carte/mot sera floutée après 3 secondes</p>
+            <p class="info-text">
+              Card/word will be blurred after
+              <span
+                style="
+                  font-family: Arial, Helvetica, sans-serif;
+                  font-weight: bold;
+                "
+                >3</span
+              >
+              seconds
+            </p>
           </div>
         </div>
 
         <button id="start-game-btn" class="primary-btn" disabled>
-          Démarrer la partie
+          Start Game
         </button>
       </div>
     </div>
@@ -82,7 +108,7 @@
           <h1>English Game</h1>
           <div class="game-info">
             <span id="difficulty-display" class="difficulty-badge"></span>
-            <button id="quit-game-btn" class="secondary-btn">Quitter</button>
+            <button id="quit-game-btn" class="secondary-btn">Quit</button>
           </div>
         </div>
 
@@ -101,23 +127,23 @@
           </div>
 
           <button id="reveal-card-btn" class="reveal-btn" style="display: none">
-            Révéler la carte
+            Reveal card
           </button>
 
           <!-- Description -->
           <div class="description-container">
             <p id="card-description" class="card-description"></p>
             <button id="unblur-btn" class="unblur-btn" style="display: none">
-              Voir la description
+              Show description
             </button>
           </div>
 
-          <button id="next-card-btn" class="primary-btn">Carte suivante</button>
+          <button id="next-card-btn" class="primary-btn">Next card</button>
         </div>
 
-        <!-- Liste des joueurs avec scores -->
+        <!-- Player score list -->
         <div class="players-score">
-          <h2>Joueurs</h2>
+          <h2>Players</h2>
           <div id="players-score-list"></div>
         </div>
       </div>
