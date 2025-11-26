@@ -184,6 +184,7 @@ h2 {
   transition: border-color 0.3s;
   width: 100%;
   max-width: 200px;
+  font-family: Arial, sans-serif;
 }
 
 #winning-score-input:focus {
@@ -348,6 +349,7 @@ h2 {
   box-shadow: 0 4px 15px rgba(231, 76, 60, 0.5);
   z-index: 10;
   animation: pulse 1s infinite;
+  font-family: Arial, sans-serif;
 }
 
 @keyframes pulse {
@@ -554,6 +556,7 @@ h2 {
   color: #667eea;
   min-width: 60px;
   text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .player-actions {
