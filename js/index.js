@@ -174,18 +174,18 @@ function updateScoreChart() {
   // Create gradient colors for bars
   const colors = gameState.players.map((player) => {
     const percentage = (player.score / gameState.winningScore) * 100;
-    if (percentage >= 90) return "rgba(231, 76, 60, 0.8)"; // Red - close to winning
-    if (percentage >= 70) return "rgba(243, 156, 18, 0.8)"; // Orange
-    if (percentage >= 50) return "rgba(241, 196, 15, 0.8)"; // Yellow
-    return "rgba(102, 126, 234, 0.8)"; // Blue - default
+    if (percentage >= 90) return "#e71e73"; // Pink - close to winning
+    if (percentage >= 70) return "#f18918"; // Orange
+    if (percentage >= 50) return "#0e9ed6"; // Blue
+    return "rgba(255, 255, 255, 0.8)"; // White - default
   });
 
   const borderColors = gameState.players.map((player) => {
     const percentage = (player.score / gameState.winningScore) * 100;
-    if (percentage >= 90) return "rgba(231, 76, 60, 1)";
-    if (percentage >= 70) return "rgba(243, 156, 18, 1)";
-    if (percentage >= 50) return "rgba(241, 196, 15, 1)";
-    return "rgba(102, 126, 234, 1)";
+    if (percentage >= 90) return "#e71e73";
+    if (percentage >= 70) return "#f18918";
+    if (percentage >= 50) return "#0e9ed6";
+    return "rgba(200, 200, 200, 1)"; // Light gray border for white bars
   });
 
   // Create chart
