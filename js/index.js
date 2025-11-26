@@ -366,8 +366,8 @@ function displayCurrentCard() {
 
   // Check if it's an image (ends with .png) or a word
   if (currentCard.endsWith(".png")) {
-    // Display card image
-    elements.cardText.innerHTML = `<img src="assets/images/${currentCard}" alt="Card" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
+    // Display card image (path already includes assets/images/difficulty/)
+    elements.cardText.innerHTML = `<img src="${currentCard}" alt="Card" style="max-width: 100%; max-height: 100%; object-fit: contain;" />`;
   } else {
     // Display word
     elements.cardText.textContent = currentCard;
