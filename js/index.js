@@ -119,7 +119,7 @@ function updatePlayersDisplay() {
 }
 
 function updateStartButtonState() {
-  elements.startGameBtn.disabled = gameState.players.length === 0;
+  elements.startGameBtn.disabled = gameState.players.length < 3;
 }
 
 // ============================================
@@ -136,6 +136,19 @@ function selectDifficulty(difficulty) {
       btn.classList.add("active");
     }
   });
+
+  // Update difficulty description
+  const descText = document.getElementById("difficulty-desc-text");
+  if (difficulty === "EASY") {
+    descText.textContent =
+      "You have 10 seconds to find the answer and easy content to find";
+  } else if (difficulty === "MEDIUM") {
+    descText.textContent =
+      "You have 6 seconds to find the answer and medium content to find";
+  } else if (difficulty === "HARD") {
+    descText.textContent =
+      "You have 3 seconds to find the answer and hard content to find";
+  }
 }
 
 // ============================================
@@ -143,8 +156,8 @@ function selectDifficulty(difficulty) {
 // ============================================
 
 function startGame() {
-  if (gameState.players.length === 0) {
-    alert("Please add at least one player");
+  if (gameState.players.length < 3) {
+    alert("Please add at least 3 players to start the game");
     return;
   }
 

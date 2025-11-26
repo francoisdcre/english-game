@@ -171,11 +171,27 @@ h2 {
   border-color: #e74c3c;
 }
 
+.difficulty-description {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: rgba(102, 126, 234, 0.08);
+  border-left: 3px solid #667eea;
+  border-radius: 6px;
+}
+
+.difficulty-description p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
+  font-weight: 500;
+}
+
 /* Sélecteur de score gagnant */
 .score-selector {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px;
 }
 
 #winning-score-input {
@@ -186,17 +202,13 @@ h2 {
   font-weight: 600;
   text-align: center;
   transition: border-color 0.3s;
-  width: 100%;
-  max-width: 200px;
+  width: 100px;
+  min-width: 100px;
 }
 
 #winning-score-input:focus {
   outline: none;
   border-color: #667eea;
-}
-
-.score-selector .info-text {
-  margin-top: 0;
 }
 
 /* Mode QUICK */
