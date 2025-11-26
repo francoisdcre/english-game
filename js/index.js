@@ -18,44 +18,71 @@ const gameState = {
 // Descriptions pour chaque carte/mot
 // ============================================
 const descriptions = {
-  // Nouvelles images - Easy level
-  "Plan de travail 2.png": "Image card - Easy difficulty level",
-  "Plan de travail 3.png": "Image card - Easy difficulty level",
-  "Plan de travail 4.png": "Image card - Easy difficulty level",
-  "Plan de travail 5.png": "Image card - Easy difficulty level",
-  "Plan de travail 6.png": "Image card - Easy difficulty level",
-  "Plan de travail 7.png": "Image card - Easy difficulty level",
-  "Plan de travail 8.png": "Image card - Easy difficulty level",
-  "Plan de travail 9.png": "Image card - Easy difficulty level",
-  "Plan de travail 10.png": "Image card - Easy difficulty level",
-  "Plan de travail 11.png": "Image card - Easy difficulty level",
+  // Images - Easy level
+  "email.png":
+    "Email - Electronic mail service for sending and receiving messages over the internet",
+  "loupe-de-recherche.png":
+    "Search icon - Magnifying glass used to represent search functionality on websites",
+  "power-button.png":
+    "Power button - Universal symbol for turning devices on or off",
+  "param\u00e8tre.png":
+    "Settings icon - Gear symbol representing configuration and preferences options",
+  "share.png":
+    "Share icon - Symbol for distributing content across social media and platforms",
+  "smartphone.png":
+    "Smartphone - Mobile device with internet connectivity and app capabilities",
+  "linkedin.png":
+    "LinkedIn - Professional networking platform for career development and business connections",
+  "Reddit.png":
+    "Reddit - Social news aggregation and discussion website with community forums",
+  "Telegram.png":
+    "Telegram - Cloud-based instant messaging service with focus on speed and security",
+  "tumblr.png":
+    "Tumblr - Microblogging and social networking platform for multimedia content",
 
-  // Nouvelles images - Medium level
-  "Plan de travail 12.png": "Image card - Medium difficulty level",
-  "Plan de travail 13.png": "Image card - Medium difficulty level",
-  "Plan de travail 14.png": "Image card - Medium difficulty level",
-  "Plan de travail 15.png": "Image card - Medium difficulty level",
-  "Plan de travail 16.png": "Image card - Medium difficulty level",
-  "Plan de travail 17.png": "Image card - Medium difficulty level",
-  "Plan de travail 18.png": "Image card - Medium difficulty level",
-  "Plan de travail 19.png": "Image card - Medium difficulty level",
-  "Plan de travail 20.png": "Image card - Medium difficulty level",
-  "Plan de travail 21.png": "Image card - Medium difficulty level",
+  // Images - Medium level
+  "adblocker.png":
+    "Ad Blocker - Software that prevents advertisements from displaying on websites",
+  "bluesky.png":
+    "Bluesky - Decentralized social media platform focused on user control",
+  "Canva.png":
+    "Canva - Online graphic design platform for creating visual content easily",
+  "Figma.png":
+    "Figma - Collaborative interface design tool used for UI/UX prototyping",
+  "kakaotalk.png":
+    "KakaoTalk - Popular South Korean messaging app with multimedia features",
+  "line.png":
+    "LINE - Japanese messaging app with stickers, calls, and payment features",
+  "notion.png":
+    "Notion - All-in-one workspace for notes, databases, and project management",
+  "prestashop.png":
+    "PrestaShop - Open-source e-commerce platform for online stores",
+  "Teams.png":
+    "Microsoft Teams - Collaboration platform for chat, meetings, and file sharing",
+  "trello.png":
+    "Trello - Visual project management tool using boards, lists, and cards",
 
-  // Nouvelles images - Hard level
-  "Plan de travail 22.png": "Image card - Hard difficulty level",
-  "Plan de travail 23.png": "Image card - Hard difficulty level",
-  "Plan de travail 24.png": "Image card - Hard difficulty level",
-  "Plan de travail 25.png": "Image card - Hard difficulty level",
-  "Plan de travail 26.png": "Image card - Hard difficulty level",
-  "Plan de travail 27.png": "Image card - Hard difficulty level",
-  "Plan de travail 28.png": "Image card - Hard difficulty level",
-  "Plan de travail 29.png": "Image card - Hard difficulty level",
-  "Plan de travail 30.png": "Image card - Hard difficulty level",
-  "Plan de travail 31.png": "Image card - Hard difficulty level",
-  "Plan de travail 32.png": "Image card - Hard difficulty level",
-
-  // Mots IT - Easy
+  // Images - Hard level
+  "ameba.png": "Ameba - Japanese blogging and social networking service",
+  "baidu.png":
+    "Baidu - China's largest search engine and internet services company",
+  "bilibili.png":
+    "Bilibili - Chinese video-sharing platform popular for anime and gaming content",
+  "Odnoklassniki.png":
+    "Odnoklassniki - Russian social networking service for classmates and friends",
+  "qq.png":
+    "QQ - Chinese instant messaging software with multimedia capabilities",
+  "VKontakte.png":
+    "VKontakte (VK) - Russian social networking platform similar to Facebook",
+  "wechat.png":
+    "WeChat - Chinese multi-purpose messaging and payment super-app",
+  "weibo.png": "Weibo - Chinese microblogging platform similar to Twitter",
+  "Wordpress.png":
+    "WordPress - Popular content management system for building websites and blogs",
+  "xiaohongshu.png":
+    "Xiaohongshu (Red) - Chinese social media and e-commerce platform",
+  "ybann.png":
+    "Yandex Browser - Russian web browser with integrated security features", // Mots IT - Easy
   "Wi-Fi":
     "Wireless technology that allows devices to connect to the internet without cables",
   Internet: "A global network connecting millions of computers worldwide",
@@ -152,16 +179,16 @@ const descriptions = {
 // ============================================
 const gameData = {
   EASY: [
-    "Plan de travail 2.png",
-    "Plan de travail 3.png",
-    "Plan de travail 4.png",
-    "Plan de travail 5.png",
-    "Plan de travail 6.png",
-    "Plan de travail 7.png",
-    "Plan de travail 8.png",
-    "Plan de travail 9.png",
-    "Plan de travail 10.png",
-    "Plan de travail 11.png",
+    "email.png",
+    "loupe-de-recherche.png",
+    "power-button.png",
+    "param\u00e8tre.png",
+    "share.png",
+    "smartphone.png",
+    "linkedin.png",
+    "Reddit.png",
+    "Telegram.png",
+    "tumblr.png",
     // Mots IT niveau facile
     "Wi-Fi",
     "Internet",
@@ -189,16 +216,16 @@ const gameData = {
     "Private message",
   ],
   MEDIUM: [
-    "Plan de travail 12.png",
-    "Plan de travail 13.png",
-    "Plan de travail 14.png",
-    "Plan de travail 15.png",
-    "Plan de travail 16.png",
-    "Plan de travail 17.png",
-    "Plan de travail 18.png",
-    "Plan de travail 19.png",
-    "Plan de travail 20.png",
-    "Plan de travail 21.png",
+    "adblocker.png",
+    "bluesky.png",
+    "Canva.png",
+    "Figma.png",
+    "kakaotalk.png",
+    "line.png",
+    "notion.png",
+    "prestashop.png",
+    "Teams.png",
+    "trello.png",
     // Mots IT niveau moyen
     "Cloud storage",
     "Online backup",
@@ -225,17 +252,17 @@ const gameData = {
     "Database",
   ],
   HARD: [
-    "Plan de travail 22.png",
-    "Plan de travail 23.png",
-    "Plan de travail 24.png",
-    "Plan de travail 25.png",
-    "Plan de travail 26.png",
-    "Plan de travail 27.png",
-    "Plan de travail 28.png",
-    "Plan de travail 29.png",
-    "Plan de travail 30.png",
-    "Plan de travail 31.png",
-    "Plan de travail 32.png",
+    "ameba.png",
+    "baidu.png",
+    "bilibili.png",
+    "Odnoklassniki.png",
+    "qq.png",
+    "VKontakte.png",
+    "wechat.png",
+    "weibo.png",
+    "Wordpress.png",
+    "xiaohongshu.png",
+    "ybann.png",
     // Mots IT niveau difficile
     "Algorithm",
     "HTML",
