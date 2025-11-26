@@ -14,6 +14,10 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: "Montserrat", sans-serif;
   background: #ffffff;
@@ -91,6 +95,7 @@ body {
 
 /* Conteneur principal */
 .container {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
   background: white;
@@ -886,28 +891,162 @@ h2 {
 
 /* Responsive */
 @media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
   .container {
-    padding: 20px;
+    padding: 20px 15px;
+    border-radius: 15px;
   }
 
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
   }
 
   .card-text {
     font-size: 1.8rem;
+    padding: 20px;
   }
 
   .difficulty-buttons {
     flex-direction: column;
+    gap: 10px;
+  }
+
+  .difficulty-btn {
+    width: 100%;
   }
 
   .game-header {
     flex-direction: column;
     gap: 15px;
+    align-items: flex-start;
   }
 
   .add-player-form {
     flex-direction: column;
+    gap: 10px;
+  }
+
+  #add-player-btn {
+    width: 100%;
+  }
+
+  /* Leaderboard responsive */
+  .leaderboard-item {
+    padding: 15px;
+    flex-wrap: wrap;
+  }
+
+  .leaderboard-rank {
+    font-size: 1.5rem;
+    min-width: 40px;
+  }
+
+  .leaderboard-item.winner .leaderboard-rank {
+    font-size: 2rem;
+  }
+
+  .leaderboard-player {
+    margin: 0 10px;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .leaderboard-player-name {
+    font-size: 1.1rem;
+  }
+
+  .leaderboard-item.winner .leaderboard-player-name {
+    font-size: 1.2rem;
+  }
+
+  .leaderboard-score {
+    font-size: 1.2rem;
+    min-width: 70px;
+  }
+
+  .leaderboard-item.winner .leaderboard-score {
+    font-size: 1.4rem;
+  }
+
+  .leaderboard-actions {
+    flex-direction: column;
+  }
+
+  .leaderboard-actions button {
+    width: 100%;
+  }
+
+  /* Score selector */
+  .score-selector {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  #winning-score-input {
+    width: 100%;
+  }
+
+  /* Player score items */
+  .player-score-item {
+    padding: 12px 15px;
+  }
+
+  .player-actions {
+    flex-wrap: wrap;
+  }
+
+  .add-point-btn,
+  .remove-point-btn {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  /* Chart container */
+  .score-chart-container {
+    padding: 15px;
+  }
+
+  /* Card content */
+  .card-content {
+    min-height: 200px;
+    padding: 30px 20px;
+  }
+
+  /* Search message */
+  .search-message {
+    font-size: 2rem;
+    padding: 20px 40px;
+  }
+
+  /* Countdown and timer */
+  .countdown-display {
+    width: 100px;
+    height: 100px;
+    font-size: 3rem;
+  }
+
+  .timer-display {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  /* Hide background images on mobile to prevent overflow */
+  .top-right-corner,
+  .top-right,
+  .top-left-corner,
+  .top-left,
+  .left,
+  .bottom-left-corner,
+  .bottom-right-corner {
+    display: none;
   }
 }
