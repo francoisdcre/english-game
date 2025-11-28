@@ -104,6 +104,22 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
+.ad-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.ad-section a {
+  color: #e71e73;
+  text-decoration: none;
+  font-weight: bold;
+}
+
 /* Gestion des écrans */
 .screen {
   display: none;
